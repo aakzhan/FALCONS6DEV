@@ -1,0 +1,7 @@
+SELECT Id, name FROM Account
+
+Select ID, project_name__c from salesforce_project__c
+
+select id, name, mailingcity from contact where mailingcity = 'Paris'
+
+select id, name, mailingcity from contact where name like 'A%'

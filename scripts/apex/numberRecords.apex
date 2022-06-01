@@ -1,0 +1,1 @@
+NumberRecords.listOfNumbers(12);

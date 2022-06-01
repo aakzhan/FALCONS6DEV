@@ -1,0 +1,1 @@
+DmlDemoClass2.dmlMultipleRecordUpdate_right();
