@@ -10,7 +10,7 @@ public with sharing class DummyPostCallout {
         request.setMethod(HTTP_GET);
 
         //2. prepare http
-        Http http = new Http();
+        http http = new http();
 
         //3. send request, get response
         HttpResponse response = http.send(request);
@@ -18,8 +18,31 @@ public with sharing class DummyPostCallout {
         system.debug(response);
         if(response.getStatusCode() == 200){
             system.debug(response.getBody());
-            DummyPostResponseWrapper dummywrapper = (DummyPostResponseWrapper)JSON.deserialize(response.getBody(),DummyPostResponseWrapper.class);
-            System.debug('dummy wrapper = '+ dummywrapper);
+            DummyPostResponseWrapper dummywrapper = (DummyPostResponseWrapper)JSON.deserialize(response.getBody(), DummyPostResponseWrapper.class);
+            system.debug('dummy wrapper = '+dummywrapper);
+            //List<post__c> 
+            system.debug('dummywrapper.posts = ' + dummywrapper.posts);
+            List<post__c> listPosts = new list<post__c>();
+            List<DummyPostResponseWrapper.Cls_Post> listClsPost = dummywrapper.posts;
+            for (DummyPostResponseWrapper.Cls_Post dpost : listClsPost) {
+                post__c p = new post__c();
+                p.id__c = dpost.id;
+                p.title__c = dpost.title;
+                p.body__c = dpost.body;
+                listPosts.add(p);
+            }
+            //Database.insert(listPosts, false);
+            //insert listPosts;
+            //insert+update
+            //if ID is found ----> update
+            //if ID not found ----> insert
+            upsert listPosts id__c;
+            
+            //for each loop on list<post> from wrapper class
+                //Post__c p = new post__c();
+                //map all fields of wrapper post to post__c object fields
+                //add in list<post__c>
+            //database.insert(list of post__c);
         } else {
             system.debug(response.getStatus());
         }

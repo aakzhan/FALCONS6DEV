@@ -1,7 +1,7 @@
 public with sharing class DummyPostResponseWrapper {
-    public List<Post> posts;
+    public List<Cls_Post> posts;
 
-   public class Post{
+   public class Cls_Post{
         public integer id;
         public string title;
         public string body;
